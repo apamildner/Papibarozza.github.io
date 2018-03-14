@@ -1,0 +1,16 @@
+
+.c-circle-container{
+  
+    width:240px;
+    height: auto;
+  
+    
+    &__img{
+        border-radius: 50%;
+
+    }
+    &--padded{
+        padding: 0;
+    }
+
+}

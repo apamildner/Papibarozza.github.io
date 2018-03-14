@@ -1,0 +1,48 @@
+
+
+.c-am-progress-loader{
+    position: relative;
+    width: 100%;
+    background-color: $beta-color;
+    height: $nb-spacing-unit;
+    border-radius: $nb-border-radius*2 0 0 $nb-border-radius*2;
+    
+    &__filler{
+        display: block;
+        position: absolute;
+        border-radius: $nb-border-radius*2 0 0 $nb-border-radius*2;
+        left: 0;
+        top:0;
+        bottom: 0;
+        background-color: $delta-color;
+        //border: 2px solid darken($delta-color,30%);
+        width: 60%;
+        animation-delay: 0.3s;
+        animation: bounce-in-60 2s ease-out 1;
+
+    }
+    &__svg{
+        height: 85px;
+            }
+    &__text{
+        position: absolute;
+        top: 25px;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        text-align: center;
+        color: $beta-color;
+      
+      
+        
+
+                  
+    }
+}
+
+@keyframes bounce-in-60 {
+    from{width: 0;}
+    85%{width: 70%}
+    95%{width: 55%}
+    to{width: 60%}
+  }

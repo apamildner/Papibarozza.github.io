@@ -1,0 +1,31 @@
+.u-border-thick{
+    border: $am-width-md solid $light-color;
+   }
+.u-txt-center{
+    text-align: center;
+}
+.u-bg-delta-color{
+    background-color: $delta-color;
+}
+.u-bg-sigma-color{
+    background-color: $sigma-color;
+}
+.u-txt-bold{
+    font-weight: bold !important;
+}
+.u-lineheight-sm{
+    line-height: 1rem !important;
+}
+.u-txt-italic{
+    font-style: italic;
+}
+
+.u-soft-top-sm{
+    padding-top: $nb-spacing-unit/2;
+}
+.u-site-main-bg-color{
+    background-color: $beta-color;
+}
+.u-site-darken-bg-color{
+    background-color: $main-color !important;
+}

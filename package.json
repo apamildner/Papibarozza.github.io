@@ -1,0 +1,36 @@
+{
+  "name": "webpageproject",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "lint": "stylelint '*/**/*.scss' --syntax scss",
+    "sass": "node-sass --output-style compressed --include-path ./nebula-css/ -o webpageproject webpageproject/scss/main.scss",
+    "autoprefixer": "postcss -u autoprefixer -r webpageproject/main.css",
+    "build": "npm run sass && npm run autoprefixer",
+    "serve": "http-server webpageproject -o",
+    "watch": "concurrently --kill-others \"onchange '*/**/*.scss' -- npm run build\" \"npm run serve\"",
+    "start": "npm run build && npm run watch",
+    "test": "npm run lint",
+    "deploy": "npm run lint && npm run build"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "autoprefixer": "^8.1.0",
+    "gulp": "^3.9.1",
+    "gulp-concat": "^2.6.1",
+    "gulp-plumber": "^1.2.0",
+    "gulp-sass": "^3.1.0",
+    "gulp-watch": "^5.0.0",
+    "jquery": "^3.3.1",
+    "nebula-css": "^2.7.1",
+    "node-sass": "^4.7.2",
+    "npm-run-all": "^4.1.2",
+    "postcss-cli": "^5.0.0"
+  },
+  "devDependencies": {
+    "gulp-autoprefixer": "^5.0.0"
+  }
+}
