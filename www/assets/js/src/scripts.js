@@ -10364,80 +10364,101 @@ return jQuery;
 } );
 
 
-function animateLine( canvas, from, to, time = 5000, props = { }, number_of_steps = 100 ) {
- 
-  let x_interval = (to.x - from.x) / number_of_steps;
-  let y_interval = (to.y - from.y) / number_of_steps;
-  let context = canvas.getContext('2d');
-  for (let prop in props) {
-    context[prop] = props[prop];
-  }
-  context.moveTo(from.x, from.y);
-  let current_x = from.x;
-  let current_y = from.y;
-  let step = 0;
-  let timer = setInterval(() => {
-    step++;
-    current_x += x_interval;
-    current_y += y_interval;
-    context.lineTo(current_x, current_y);
-    context.stroke();
-    if (step === number_of_steps) {
-      clearInterval(timer);
-    }
-  }, time / number_of_steps);
 
+// calculate incremental points along the path
+//var data_points = {a:4, b:2, c:2, d:4, e:0, f:3, g:4}
+//var colorData = {hexagonColor:"#ffa630",dataLineColor:"#FFFFFF"}
+//var hexagonData= {centerX: 150, centerY:150, radius:130, canvasSize:300, color:colorData.hexagonColor}
+//var vertices=getDataPoints(data_points,hexagonData)
+//var points=calcWaypoints(vertices);
+
+
+// calc waypoints traveling along vertices
+function calcWaypoints(vertices){
+  var waypoints=[];
+  for(var i=1;i<vertices.length;i++){
+      var pt0=vertices[i-1];
+      var pt1=vertices[i];
+      var dx=pt1.x-pt0.x;
+      var dy=pt1.y-pt0.y;
+      for(var j=0;j<100;j++){
+          var x=pt0.x+dx*j/100;
+          var y=pt0.y+dy*j/100;
+          waypoints.push({x:x,y:y});
+      }
+  }
+  return(waypoints);
 }
 
+// variable to hold how many frames have elapsed in the animation
+// t represents each waypoint along the path and is incremented in the animation loop
+var t=1;
 
+
+
+  
+//animate();
+
+// incrementally draw additional line segments along the path
+function animate(){
+  var canvas = $('#js-hexagon-canvas')[0];
+  var ctx = canvas.getContext('2d');
+  ctx.shadowColor = "rgb(128, 128, 128)";
+  //ctx.shadowOffsetX = 3; 
+  //ctx.shadowOffsetY = 3;
+  ctx.lineWidth= 3;
+  ctx.strokeStyle= colorData.dataLineColor;
+    if(t<points.length-1){ requestAnimationFrame(animate); }
+    // draw a line segment from the last waypoint
+    // to the current waypoint
+    ctx.beginPath();
+    ctx.moveTo(points[t-1].x,points[t-1].y);
+    ctx.lineTo(points[t].x,points[t].y);
+    ctx.stroke();
+    // increment "t" to get the next waypoint
+    t++;
+}
 var pi = new Image();
-pi.src='./assets/img/svg/pi.svg'
+pi.src='www/assets/img/svg/pi.svg'
 var grad = new Image();
-grad.src = './assets/img/svg/black.svg'
+grad.src = 'www//assets/img/svg/black.svg'
 var images = [pi, grad];
-var data_points = {a:4, b:2, c:1, d:4, e:0, f:3, g:4}
-var colorData = {hexagonColor:"#ffa630",dataLineColor:"#FFFFFF"}
+//var data_points = {a:4, b:2, c:2, d:4, e:0, f:3, g:4}
+//var colorData = {hexagonColor:"#ffa630",dataLineColor:"#FFFFFF"}
+//var hexagonData= {centerX: 150, centerY:150, radius:130, canvasSize:300, color:colorData.hexagonColor}
 
 $(document).ready(function draw(){
-    const canvas = $('#js-hexagon-canvas')[0];
+    var canvas = $('#js-hexagon-canvas')[0];
     var ctx = canvas.getContext('2d');
 
-    var hexagonData= {centerX: 150, centerY:150, radius:130, canvasSize:300, color:colorData.hexagonColor}
-    var radius= hexagonData.radius;
+//    var radius= hexagonData.radius;
     for(i=0; i<4; i++){
         var hexagon = hexagonData;
+       
         drawHexagon(hexagon,ctx);
         hexagon.radius-=30;           
     }
-    drawDataPoints(data_points,hexagonData,ctx)
-    //drawImages(images,ctx,hexagonData)      
+    animate();
+       
 })
 
-function drawDataPoints(data_points,hexagonData,ctx){
+function getDataPoints(data_points,hexagonData){ 
     var radius=130,centerX=hexagonData.centerX,centerY=hexagonData.centerY;   
-    var angle=0;
-    ctx.beginPath();
-    var from= {x:0,y:0}
+    var angle=0;  
+    var path = [];
    
     var dataValueArray= Object.values(data_points);
+   
     for (index in dataValueArray){
-        var data_value= dataValueArray[index];         
-        ctx.lineWidth= 2;
-        ctx.strokeStyle = colorData.dataLineColor;
-        console.log(data_value)
-          
-            var xC= centerX + (radius-30*(4-data_value))*Math.cos(angle);
-            var yC= centerY +  (radius-30*(4-data_value))*Math.sin(angle);
-            ctx.lineTo(xC ,yC);
-            ctx.stroke();
-           
-            var to = {x:xC,y:yC}                   
-                angle+=Math.PI/3;                              
+        var data_value= dataValueArray[index];            
+        var xC= centerX + (radius-30*(4-data_value))*Math.cos(angle);
+        var yC= centerY +  (radius-30*(4-data_value))*Math.sin(angle);
+        path.push({x:xC,y:yC})
+        angle+=Math.PI/3;                              
+        console.log(path);                 
     }
-  
-
-  
-    
+return path;
+ 
 
 
 }
@@ -10449,6 +10470,10 @@ function drawHexagon(hexagonData,ctx){
     var angle=0,x,y;
     ctx.beginPath();
     ctx.strokeStyle  = color;
+    ctx.shadowColor = "rgb(210, 135, 121)";
+    ctx.shadowOffsetX = 2; 
+    ctx.shadowOffsetY = 2;
+    
 for (side=0; side < 8; side++) {   
     x= centerX + radius*Math.cos(angle);
     y= centerY +  radius*Math.sin(angle);
@@ -10506,3 +10531,10 @@ $(document).ready(function initCta(){
         }
     })
 })
+
+//Put all global variables used here
+var data_points = {a:4, b:1, c:3, d:4, e:3, f:3, g:4}
+var colorData = {hexagonColor:"#95C85B",dataLineColor:"#8866CC"}
+var hexagonData= {centerX: 150, centerY:150, radius:130, canvasSize:300, color:colorData.hexagonColor}
+var vertices=getDataPoints(data_points,hexagonData)
+var points=calcWaypoints(vertices);
