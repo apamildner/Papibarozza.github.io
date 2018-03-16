@@ -1,0 +1,28 @@
+
+.o-image-card{ 
+       
+        position: relative;
+
+        
+        background-color: $alfa-color;
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.3), 0 6px 20px 0 rgba(0, 0, 0, 0.39);
+        border: 2px solid $light-color;
+        object-fit: cover;  
+        height: 230px;
+        overflow: hidden;
+        width: 100%;
+        &__img{
+            object-fit: cover;
+        }
+    
+       &--hover-effect:hover img{
+            transform: scale(1.15);
+            transition: transform 0.2s;
+            filter: blur(2px);                    
+        }
+        &--hover-effect img{
+            transform: scale(1.0);
+            transition: transform 0.2s;
+
+        }
+}

@@ -10418,6 +10418,16 @@ function animate(){
     // increment "t" to get the next waypoint
     t++;
 }
+
+$(document).ready(function(){
+    val=5;
+    for (var i=0;i<val;i++){
+        console.log
+        $(".js-DEVELOPMENT_ECHO_PARENT").append($(".js-DEVELOPMENT_ECHO_OBJ").clone().removeClass("js-DEVELOPMENT_ECHO_OBJ"))
+    }
+});
+ 
+
 var pi = new Image();
 pi.src='www/assets/img/svg/pi.svg'
 var grad = new Image();

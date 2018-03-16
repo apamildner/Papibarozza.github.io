@@ -3814,6 +3814,37 @@ button.c-pill--error.is-active {
   to {
     width: 60%; } }
 
+.o-image-card {
+  position: relative;
+  background-color: #C15644;
+  -webkit-box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.3), 0 6px 20px 0 rgba(0, 0, 0, 0.39);
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.3), 0 6px 20px 0 rgba(0, 0, 0, 0.39);
+  border: 2px solid #FBF7F4;
+  -o-object-fit: cover;
+  object-fit: cover;
+  height: 230px;
+  overflow: hidden;
+  width: 100%; }
+  .o-image-card__img {
+    -o-object-fit: cover;
+    object-fit: cover; }
+  .o-image-card--hover-effect:hover img {
+    -webkit-transform: scale(1.15);
+    transform: scale(1.15);
+    -webkit-transition: -webkit-transform 0.2s;
+    transition: -webkit-transform 0.2s;
+    transition: transform 0.2s;
+    transition: transform 0.2s, -webkit-transform 0.2s;
+    -webkit-filter: blur(2px);
+    filter: blur(2px); }
+  .o-image-card--hover-effect img {
+    -webkit-transform: scale(1);
+    transform: scale(1);
+    -webkit-transition: -webkit-transform 0.2s;
+    transition: -webkit-transform 0.2s;
+    transition: transform 0.2s;
+    transition: transform 0.2s, -webkit-transform 0.2s; }
+
 .u-1\/1 {
   width: 100%; }
 
