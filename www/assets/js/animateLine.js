@@ -11,14 +11,15 @@
 // calc waypoints traveling along vertices
 function calcWaypoints(vertices){
   var waypoints=[];
+  var speedFactor = 50;
   for(var i=1;i<vertices.length;i++){
       var pt0=vertices[i-1];
       var pt1=vertices[i];
       var dx=pt1.x-pt0.x;
       var dy=pt1.y-pt0.y;
-      for(var j=0;j<100;j++){
-          var x=pt0.x+dx*j/100;
-          var y=pt0.y+dy*j/100;
+      for(var j=0;j<speedFactor;j++){
+          var x=pt0.x+dx*j/speedFactor;
+          var y=pt0.y+dy*j/speedFactor;
           waypoints.push({x:x,y:y});
       }
   }
@@ -38,11 +39,12 @@ var t=1;
 function animate(){
   var canvas = $('#js-hexagon-canvas')[0];
   var ctx = canvas.getContext('2d');
-  ctx.shadowColor = "rgb(128, 128, 128)";
-  //ctx.shadowOffsetX = 3; 
-  //ctx.shadowOffsetY = 3;
-  ctx.lineWidth= 3;
+  ctx.shadowColor = "rgba(0,0,0,0.1)";
+  ctx.shadowOffsetX =2; 
+  ctx.shadowOffsetY = 2;
+  ctx.lineWidth= 4;
   ctx.strokeStyle= colorData.dataLineColor;
+  
     if(t<points.length-1){ requestAnimationFrame(animate); }
     // draw a line segment from the last waypoint
     // to the current waypoint
@@ -51,5 +53,12 @@ function animate(){
     ctx.lineTo(points[t].x,points[t].y);
     ctx.stroke();
     // increment "t" to get the next waypoint
-    t++;
+    
+    t+=1;
+    if(t=== points.length-1){
+        ctx.beginPath();
+        ctx.moveTo(points[points.length-1].x,points[points.length-1].y);
+        ctx.lineTo(points[0].x,points[0].y);
+        ctx.stroke();
+    }
 }

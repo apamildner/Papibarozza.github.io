@@ -16,14 +16,47 @@ $(document).ready(function draw(){
         var hexagon = hexagonData;
        
         drawHexagon(hexagon,ctx);
-        hexagon.radius-=30;           
+        hexagon.radius-=hexagonData.radiusDecrement;          
     }
-    animate();
+    
+    ctx.strokeStyle = "black"
+    ctx.lineWidth = 10;
+    ctx.shadowColor = "rgba(210, 135, 121, 0)";
+    ctx.font = "bold 20px Raleway"
+    
+    ctx.fillText("Mathematics",55,35);
+
+    ctx.fillText("Front end",265,35)
+    ctx.fillText("Development",265,55)
+
+    ctx.fillText("Machine",315,150)
+    ctx.fillText("Learning",315,165);
+
+    ctx.fillText("Neural",0,150);
+    ctx.fillText("Networks",0,165);
+
+    ctx.fillText("Coffe",265,265)
+    ctx.fillText("Drinking",265,282)
+
+    ctx.fillText("Motivation",55,265)
+    ctx.fillText("To Learn",55,282)
+
+   animate();
+
+    /*
+    vertices.forEach(function(point){
+        ctx.lineWidth = 1;
+        ctx.beginPath();
+        ctx.arc(point.x,point.y,10,0,2*Math.PI);
+        ctx.fill();
+    })
+    */
+    
        
 })
 
 function getDataPoints(data_points,hexagonData){ 
-    var radius=130,centerX=hexagonData.centerX,centerY=hexagonData.centerY;   
+    var radius=hexagonData.radius,centerX=hexagonData.centerX,centerY=hexagonData.centerY;   
     var angle=0;  
     var path = [];
    
@@ -31,8 +64,8 @@ function getDataPoints(data_points,hexagonData){
    
     for (index in dataValueArray){
         var data_value= dataValueArray[index];            
-        var xC= centerX + (radius-30*(4-data_value))*Math.cos(angle);
-        var yC= centerY +  (radius-30*(4-data_value))*Math.sin(angle);
+        var xC= centerX + (radius-hexagonData.radiusDecrement*(4-data_value))*Math.cos(angle);
+        var yC= centerY +  (radius-hexagonData.radiusDecrement*(4-data_value))*Math.sin(angle);
         path.push({x:xC,y:yC})
         angle+=Math.PI/3;                              
         console.log(path);                 
@@ -50,15 +83,18 @@ function drawHexagon(hexagonData,ctx){
     var angle=0,x,y;
     ctx.beginPath();
     ctx.strokeStyle  = color;
-    ctx.shadowColor = "rgb(210, 135, 121)";
-    ctx.shadowOffsetX = 2; 
-    ctx.shadowOffsetY = 2;
+    //ctx.shadowColor = "rgb(210, 135, 121)";
+    ctx.shadowColor = "rgba(0, 0, 0,0.1)";
+    ctx.shadowOffsetX = 3; 
+    ctx.shadowOffsetY = 7;
+    ctx.shadowBlur = 4;
+
     
 for (side=0; side < 8; side++) {   
     x= centerX + radius*Math.cos(angle);
     y= centerY +  radius*Math.sin(angle);
     ctx.lineTo(x ,y);
-    ctx.lineWidth= 4;
+    ctx.lineWidth= 3;
     ctx.stroke();
     angle+=Math.PI/3;
 }
