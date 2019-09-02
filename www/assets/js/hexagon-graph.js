@@ -38,8 +38,8 @@ $(document).ready(function draw(){
     ctx.fillText("Coffe",265,265)
     ctx.fillText("Drinking",265,282)
 
-    ctx.fillText("Motivation",55,265)
-    ctx.fillText("To Learn",55,282)
+    ctx.fillText("Backend",55,265)
+    ctx.fillText("Development",55,282)
 
    animate();
 

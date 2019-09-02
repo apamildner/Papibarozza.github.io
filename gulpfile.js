@@ -19,9 +19,9 @@ gulp.task('sass', function() {
 
 
 gulp.task('watch', function() {
-    gulp.watch(w + 'assets/styles/scss/*.scss', ['sass']);
-    gulp.watch(w + 'assets/styles/scss/*/*.scss', ['sass']);
-    gulp.watch(w + 'assets/js/*.js',['js']);
+    gulp.watch(w + 'assets/styles/scss/*.scss', gulp.series('sass'));
+    gulp.watch(w + 'assets/styles/scss/*/*.scss', gulp.series('sass'));
+    gulp.watch(w + 'assets/js/*.js',gulp.series('js'));
     
 });
 
@@ -34,4 +34,5 @@ gulp.task('js', function() {
         .pipe(gulp.dest(w+'assets/js/src'));
 });
 
-gulp.task('default', ['watch']);
+gulp.task('default',gulp.parallel('watch'));
+

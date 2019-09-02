@@ -3777,8 +3777,8 @@ button.c-pill--error.is-active {
     left: 0;
     top: 0;
     bottom: 0;
-    background-color: #8866CC;
-    width: 60%;
+    background-color: #95C85B;;
+    width: 80%;
     -webkit-animation-delay: 0.3s;
     animation-delay: 0.3s;
     -webkit-animation: bounce-in-60 2s ease-out 1;
